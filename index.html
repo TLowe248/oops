@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		console.group("Exercise 1")
+		function globalThisTest() {
+			console.log("This is " + this)
+		}
+		let objectThisTest = {
+			localThisTest: function () {
+				console.log("This is " + this)
+			},
+			arrowThisTest: () => console.log("This is " + this)
+		}
+		globalThisTest()
+		objectThisTest.localThisTest()
+		objectThisTest.arrowThisTest()
+
+		console.log(`"Tolerating the 'this' keyword" - Mr. Cattron, 2024`)
+
+		console.groupEnd()
+
+		console.group("Exercise 2")
+
+		class person {
+			constructor(name, age) {
+				this.name = name
+				this._age = age
+			}
+			greet() {
+				console.log("Hello, my name is " + this.name)
+			}
+
+			static info() {
+				return `This is a person class.`
+			}
+
+			set age(age) {
+				if (age < 0) {
+					throw new Error("Age cannot be negative")
+				}
+				this._age = age
+			}
+		}
+		const p = new person("toby", 25)
+		const q = new person("joe", 35)
+		p.greet()
+		q.greet()
+
+		console.groupEnd()
+
+		console.group("Exercise 3")
+
+		const p1 = new person("Thomas", 25)
+		const p2 = new person("Loise", 35)
+
+		console.log(p1._age)
+		console.log(p2._age)
+
+		console.groupEnd()
+
+		console.group("Exercise 4")
+
+		console.log(person.info())
+		console.log("Instances of a class cannot use static methods")
+
+		console.groupEnd()
+
+		console.group("Exercise 5")
+
+		console.log("You can't age backward! Negative ages are not allowed.")
+
+		console.groupEnd()
+
+		console.group("Exercise 6")
+
+		class library {
+			constructor(books) {
+				this.books = books
+			}
+			addBook(book) {
+				this.books.push(book)
+			}
+			removeBook(book) {
+				this.books = this.books.filter((b) => b !== book)
+			}
+			getBooks() {
+				for (let i = 0; i < this.books.length; i++) {
+					console.log("Book " + (i + 1) + ": " + this.books[i].title + " by " + this.books[i].author + " (" + this.books[i].year + ")")
+				}
+			}
+		}
+		class book {
+			#ISBN
+			constructor(ISBN, title, author, year) {
+				this.ISBN = ISBN
+				this.title = title
+				this.author = author
+				this.year = year
+			}
+		}
+
+		const l = new library([])
+		l.addBook(new book("978-0-672-32201-0", "The Lord of the Rings", "J. R. R. Tolkien", 1954))
+		l.getBooks()
+
+		console.groupEnd()
+
+		console.group("Exercise 7")
+
+		class student {
+			constructor(name, grades) {
+				this.name = name
+				this.grades = grades
+			}
+			average() {
+				let sum = 0
+				for (let i = 0; i < this.grades.length; i++) {
+					sum += this.grades[i]
+				}
+				return sum / this.grades.length
+			}
+		}
+
+		const s = new student("toby", [1, 2, 3, 4, 5])
+		console.log(s.average())
+
+		console.groupEnd()
+	</script>
+</body>
+
+</html>
